@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+		<head>
+			<meta charset="UTF-8">
+		    <meta name="viemport" content="width=device-width, initial-scale=1.0">
+		    <title>我的酷炫個人檔案</title>
+
+            <style>
+            	body{
+            		font-family: 'Inter',system-ui, -apple-system, BlinkMacSystemFont, 'segoe UI', Roboto,'Helvetica Neue', ,Arial,'Noto Sans', sans-serif;
+            		background-color: #f3f4f6;;
+            		color: #1f2937;
+            		margin: 0;
+            		padding: 1.5rem
+            	}
+
+            	.container{
+            		max-width: 64rem;
+            		margin-left: auto;
+            		margin-right:auto ;
+            	}
+
+            	.profile-card{
+            		background-color: #ffffff;
+            		border-radius: 1.5rem;
+            		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            		overflow: hidden;
+
+            	}
+
+            	.profile-banner{
+            		height: 12rem;
+            		background-image: linear-gradient(to right, #06b6d4, #3b82f6);
+            		position: relative; 
+
+
+            	}
+            	.profile-info{
+            		display: flex;
+            		flex-direction: column;
+            		align-items: center;
+            		padding: 1.5rem;
+
+            		margin-top: -5rem ;
+            	    position: relative;
+            	    z-index: 10;
+            	}
+            	
+            	.profile-details{
+            		margin-top: 1rem;
+            		text-align: center;
+            	}
+            	.profile-details h1 {
+            		font-size: 1.875rem;
+            		font-weight: 700;
+            		color: #111827;
+            		transition: color 0.3s;
+            		margin: 0;
+
+            	}
+            	.profile-details p{
+            		font-size: 1.125rem;
+            		color: #2563eb;
+            		font-weight: 500;
+            		margin: 0.25rem 0 0 0;
+
+            	}
+				.content-section {
+				margin-top: 2rem;
+				}
+            	.content-section h2 {
+            		font-size: 1.5rem;
+            		font-weight: 600;
+            		border-bottom: 2px solid #bfdbfe;
+            		padding-bottom: 0.5rem;
+            		margin-bottom: 1rem;
+
+            	}
+            	.about-me-text {
+            		line-height: 1.625;
+            		color: #374151;
+
+            	}
+            	.project-grid {
+            		display: grid;
+            		grid-template-columns: repeat(2, 1fr);;
+            		gap: 1.5rem;
+
+
+            	}
+            	.project-card {
+            		background-color: #f9fafb;
+            		border-radius: 0.75rem;
+            		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            		overflow: hidden;
+            	}
+            	.project-card img {
+            		width: 100%;
+            		height: 10rem;
+            		object-fit: cover;
+
+            	}
+            	.project-card-content {
+            		padding: 1.25rem;
+
+            	}
+            	.project-card-content h3 {
+	            font-size: 1.25rem; 
+	            font-weight: 700; 
+	            color: #111827; 
+	            margin: 0;
+	        }
+	        .project-card-content p {
+	            color: #4b5563; 
+	            margin: 0.5rem 0 0 0;
+	        }
+	            
+            	footer {
+            		text-align: center;
+            		color: #6b7280;
+            		margin-top: 2rem;
+            		font-size: 0.875rem;
+            	}
+            	@media (min-width: 768px) {
+
+            		body {
+            			padding: 2.5rem;
+
+            		}
+            	.profile-banner {
+            		height: 16rem;
+
+            	}
+            	.profile-info {
+            		flex-direction: row;
+            		padding: 2.5rem;
+            	}
+            	.profile-avatar {
+            		width: 10rem;
+            		height: 10rem;
+
+            	}
+            	.profile-details {
+            		margin-top: 0;
+            		margin-left: 2rem;
+            		text-align: left;
+            	}
+            	.profile-details h1 {
+            		font-size: 2.25rem;
+            	}
+
+            	
+
+
+
+            </style>
+            	
+
+	    </head>
+	<body>
+		<div class="container">
+			<main class="profile-card">
+
+			    <header class="profile-banner">
+
+			    </header>
+
+			    <section class="profile-info">
+			    	<img 
+			    	  src="./images/liam_resize.jpg"
+			    	  alt="我的大頭貼"
+			    	  class="profileName"
+			    	>
+
+			    	<div class="profile-details">
+			    		<h1 id="profileName">
+			    			王俞皓 (Liam wang)
+			    		</h1>
+				    		<p>
+				    			aspiring developer &國中生
+				    		</p>
+			    	</div>
+
+			    	  
+			    </section>
+
+			    <div class=main-content>
+			    	<section class="content-section">
+			    		<h2>關於我 (About Me)</h2>
+			    			<p class="about-me-text">
+			    	 哈囉！我是一個對寫程式充滿好奇的國中生。我喜歡玩電動，但國中沒時間玩，也很好奇這些遊戲是怎麼做出來的。我正在學習HTML, CSS和JavaScript，希望有一天能做出自己的網站或小遊戲。這個頁面就是我的第一個作品！ 
+
+			    			</p>
+			    			
+			    		
+			    	</section>
+
+			    
+	              <section class="content-section">
+	              	<div class="project-grid">
+		              	<div class="project-card">
+		              		<img src="https://placehold.co/400x200/A9D5E5/333?text=project+1" alt="專案1圖片">
+		              		<div class="project-card-content">
+		              			<h3>我的第一個網站</h3>
+		              			<p>............</p>
+		              		</div>	              		
+		                </div>
+
+
+		              
+		              	<div class="project-card">
+		              		<img src="https://placehold.co/400x200/FAB8A9/333?text=project+2" alt="專案2圖片">
+		              		<div class="project-card-content">
+		              			<h3>計算機</h3>
+		              			<p>............<a href="calculator.html">連結</a>。</p>
+		              		</div>
+		                </div>
+	              	</div>          	
+	                             </section> 
+	                    </div>  
+			
+			</main>
+			<footer>
+				&copy; 2025 王俞皓的個人檔案. all rights reserved.
+			</footer>
+		</div>
+
+	</body>
+</html>
