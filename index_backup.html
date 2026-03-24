@@ -1,229 +1,517 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-		<head>
-			<meta charset="UTF-8">
-		    <meta name="viemport" content="width=device-width, initial-scale=1.0">
-		    <title>我的酷炫個人檔案</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王俞皓 Liam | 漫畫風履歷 V2.1</title>
+    <!-- 引入字體：手寫感與粗體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f0f0f0;
+            --panel-bg: #ffffff;
+            --ink-black: #222;
+            --action-yellow: #FFD700;
+            --action-blue: #22a6ff;
+            --danger-red: #ff4757;
+            --hero-green: #2ecc71;
+        }
 
-            <style>
-            	body{
-            		font-family: 'Inter',system-ui, -apple-system, BlinkMacSystemFont, 'segoe UI', Roboto,'Helvetica Neue', ,Arial,'Noto Sans', sans-serif;
-            		background-color: #f3f4f6;;
-            		color: #1f2937;
-            		margin: 0;
-            		padding: 1.5rem
-            	}
+        /* 網點背景效果 */
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--ink-black) 1px, transparent 0);
+            background-size: 25px 25px;
+            background-attachment: fixed;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: var(--ink-black);
+            overflow-x: hidden;
+        }
 
-            	.container{
-            		max-width: 64rem;
-            		margin-left: auto;
-            		margin-right:auto ;
-            	}
+        /* 進場動畫 */
+        @keyframes panelEntrance {
+            from { opacity: 0; transform: scale(0.8) translateY(50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
-            	.profile-card{
-            		background-color: #ffffff;
-            		border-radius: 1.5rem;
-            		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            		overflow: hidden;
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
 
-            	}
+        .comic-container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
 
-            	.profile-banner{
-            		height: 12rem;
-            		background-image: linear-gradient(to right, #06b6d4, #3b82f6);
-            		position: relative; 
+        /* 標題區塊 */
+        .comic-header {
+            background: var(--action-yellow);
+            border: 5px solid var(--ink-black);
+            padding: 30px 20px;
+            text-align: center;
+            transform: rotate(-1.5deg);
+            box-shadow: 12px 12px 0px var(--ink-black);
+            margin-bottom: 60px;
+            position: relative;
+            animation: panelEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
+        .comic-header h1 {
+            font-family: 'Bangers', 'Noto Sans TC', sans-serif;
+            font-size: 4.5rem;
+            margin: 0;
+            letter-spacing: 5px;
+            -webkit-text-stroke: 2px var(--ink-black);
+            text-shadow: 5px 5px 0px white;
+        }
 
-            	}
-            	.profile-info{
-            		display: flex;
-            		flex-direction: column;
-            		align-items: center;
-            		padding: 1.5rem;
+        /* 漫畫格子佈局 */
+        .comic-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 25px;
+        }
 
-            		margin-top: -5rem ;
-            	    position: relative;
-            	    z-index: 10;
-            	}
-            	
-            	.profile-details{
-            		margin-top: 1rem;
-            		text-align: center;
-            	}
-            	.profile-details h1 {
-            		font-size: 1.875rem;
-            		font-weight: 700;
-            		color: #111827;
-            		transition: color 0.3s;
-            		margin: 0;
+        .panel {
+            background: var(--panel-bg);
+            border: 4px solid var(--ink-black);
+            padding: 20px;
+            position: relative;
+            box-shadow: 8px 8px 0px var(--ink-black);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: panelEntrance 0.8s both;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
 
-            	}
-            	.profile-details p{
-            		font-size: 1.125rem;
-            		color: #2563eb;
-            		font-weight: 500;
-            		margin: 0.25rem 0 0 0;
+        .panel:hover {
+            transform: scale(1.02) !important;
+            box-shadow: 12px 12px 0px var(--ink-black);
+            z-index: 5;
+        }
 
-            	}
-				.content-section {
-				margin-top: 2rem;
-				}
-            	.content-section h2 {
-            		font-size: 1.5rem;
-            		font-weight: 600;
-            		border-bottom: 2px solid #bfdbfe;
-            		padding-bottom: 0.5rem;
-            		margin-bottom: 1rem;
+        /* 延遲動畫 */
+        .panel:nth-child(1) { animation-delay: 0.1s; }
+        .panel:nth-child(2) { animation-delay: 0.2s; }
+        .panel:nth-child(3) { animation-delay: 0.3s; }
+        .panel:nth-child(4) { animation-delay: 0.4s; }
+        .panel:nth-child(5) { animation-delay: 0.5s; }
+        .panel:nth-child(6) { animation-delay: 0.6s; }
 
-            	}
-            	.about-me-text {
-            		line-height: 1.625;
-            		color: #374151;
+        .panel:nth-child(odd) { transform: rotate(-0.5deg); }
+        .panel:nth-child(even) { transform: rotate(0.5deg); }
 
-            	}
-            	.project-grid {
-            		display: grid;
-            		grid-template-columns: repeat(2, 1fr);;
-            		gap: 1.5rem;
+        .span-12 { grid-column: span 12; }
+        .span-8 { grid-column: span 8; }
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
 
+        .panel-title {
+            display: inline-block;
+            background: var(--ink-black);
+            color: white;
+            padding: 5px 15px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            transform: skewX(-15deg);
+            align-self: flex-start;
+        }
 
-            	}
-            	.project-card {
-            		background-color: #f9fafb;
-            		border-radius: 0.75rem;
-            		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            		overflow: hidden;
-            	}
-            	.project-card img {
-            		width: 100%;
-            		height: 10rem;
-            		object-fit: cover;
+        /* 照片區域與滑鼠特效 */
+        .comic-photo-frame {
+            border: 4px solid var(--ink-black);
+            background: #eee;
+            position: relative;
+            line-height: 0;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
 
-            	}
-            	.project-card-content {
-            		padding: 1.25rem;
+        .comic-photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1);
+            transition: transform 0.5s;
+        }
 
-            	}
-            	.project-card-content h3 {
-	            font-size: 1.25rem; 
-	            font-weight: 700; 
-	            color: #111827; 
-	            margin: 0;
-	        }
-	        .project-card-content p {
-	            color: #4b5563; 
-	            margin: 0.5rem 0 0 0;
-	        }
-	            
-            	footer {
-            		text-align: center;
-            		color: #6b7280;
-            		margin-top: 2rem;
-            		font-size: 0.875rem;
-            	}
-            	@media (min-width: 768px) {
+        .comic-photo-frame:hover img {
+            transform: scale(1.1);
+        }
 
-            		body {
-            			padding: 2.5rem;
+        .photo-tag {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: var(--action-yellow);
+            color: var(--ink-black);
+            padding: 8px 18px;
+            font-weight: 900;
+            border: 3px solid var(--ink-black);
+            transform: rotate(-3deg);
+            font-size: 1.2rem;
+            z-index: 2;
+            pointer-events: none;
+        }
 
-            		}
-            	.profile-banner {
-            		height: 16rem;
+        /* 對話氣泡動畫 */
+        .bubble {
+            position: relative;
+            background: #fff;
+            border: 3px solid var(--ink-black);
+            padding: 18px;
+            border-radius: 25px;
+            margin: 10px 0;
+            font-weight: 700;
+            line-height: 1.6;
+            transition: transform 0.3s;
+        }
 
-            	}
-            	.profile-info {
-            		flex-direction: row;
-            		padding: 2.5rem;
-            	}
-            	.profile-avatar {
-            		width: 10rem;
-            		height: 10rem;
+        .bubble:hover {
+            transform: translateY(-5px);
+        }
 
-            	}
-            	.profile-details {
-            		margin-top: 0;
-            		margin-left: 2rem;
-            		text-align: left;
-            	}
-            	.profile-details h1 {
-            		font-size: 2.25rem;
-            	}
+        /* 數值區塊 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
 
-            	
+        .stat-item {
+            border: 2px solid var(--ink-black);
+            padding: 10px 5px;
+            background: #f9f9f9;
+            transition: background 0.2s;
+        }
 
+        .stat-item:hover { background: var(--action-yellow); }
 
+        .stat-label { font-size: 0.8rem; font-weight: 900; color: #666; }
+        .stat-value { font-size: 1.4rem; font-weight: 900; color: var(--action-blue); }
 
-            </style>
-            	
+        /* 技能條動畫 */
+        .skill-bar { height: 20px; border: 3px solid var(--ink-black); background: #fff; position: relative; }
+        .skill-fill { 
+            height: 100%; 
+            background: var(--action-blue); 
+            border-right: 2px solid var(--ink-black); 
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+        }
 
-	    </head>
-	<body>
-		<div class="container">
-			<main class="profile-card">
+        /* 特效標籤 */
+        .zap-tag {
+            background: var(--danger-red);
+            color: white;
+            padding: 4px 12px;
+            font-weight: 900;
+            display: inline-block;
+            margin: 5px 3px;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            transition: transform 0.2s;
+            cursor: default;
+        }
 
-			    <header class="profile-banner">
+        .zap-tag:hover {
+            transform: scale(1.2) rotate(5deg);
+            background: var(--ink-black);
+        }
 
-			    </header>
+        /* 燈箱樣式 (Lightbox) */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: zoom-out;
+        }
 
-			    <section class="profile-info">
-			    	<img 
-			    	  src="./liam_resize.jpg"
-			    	  alt="我的大頭貼"
-			    	  class="profileName"
-			    	>
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 10px solid white;
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
 
-			    	<div class="profile-details">
-			    		<h1 id="profileName">
-			    			王俞皓 (Liam wang)
-			    		</h1>
-				    		<p>
-				    			aspiring developer &國中生
-				    		</p>
-			    	</div>
+        #lightbox.active { display: flex; }
+        #lightbox.active img { transform: scale(1); }
 
-			    	  
-			    </section>
+        /* 成就連結特效 */
+        .achievement-link {
+            display: block;
+            background: white;
+            border: 3px solid var(--ink-black);
+            padding: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 900;
+            transition: 0.2s;
+        }
 
-			    <div class=main-content>
-			    	<section class="content-section">
-			    		<h2>關於我 (About Me)</h2>
-			    			<p class="about-me-text">
-			    	 哈囉！我是一個對寫程式充滿好奇的國中生。我喜歡玩電動，但國中沒時間玩，也很好奇這些遊戲是怎麼做出來的。我正在學習HTML, CSS和JavaScript，希望有一天能做出自己的網站或小遊戲。這個頁面就是我的第一個作品！ 
+        .achievement-link:hover {
+            background: var(--action-yellow);
+            transform: translateX(10px) skewX(-5deg);
+            animation: shake 0.5s infinite;
+        }
 
-			    			</p>
-			    			
-			    		
-			    	</section>
+        /* 大按鈕特效 */
+        .btn-bam {
+            display: block;
+            width: 100%;
+            padding: 25px;
+            background: var(--danger-red);
+            color: white;
+            text-align: center;
+            font-size: 2.2rem;
+            font-family: 'Bangers', 'Noto Sans TC', sans-serif;
+            text-decoration: none;
+            border: 5px solid var(--ink-black);
+            box-shadow: 10px 10px 0px var(--ink-black);
+            margin-top: 50px;
+            cursor: pointer;
+            transition: 0.1s;
+        }
 
-			    
-	              <section class="content-section">
-	              	<div class="project-grid">
-		              	<div class="project-card">
-		              		<img src="https://placehold.co/400x200/A9D5E5/333?text=project+1" alt="專案1圖片">
-		              		<div class="project-card-content">
-		              			<h3>我的第一個網站</h3>
-		              			<p>............</p>
-		              		</div>	              		
-		                </div>
+        .btn-bam:hover {
+            background: var(--hero-green);
+        }
 
+        .btn-bam:active {
+            transform: translate(5px, 5px);
+            box-shadow: 5px 5px 0px var(--ink-black);
+        }
 
-		              
-		              	<div class="project-card">
-		              		<img src="https://placehold.co/400x200/FAB8A9/333?text=project+2" alt="專案2圖片">
-		              		<div class="project-card-content">
-		              			<h3>計算機</h3>
-		              			<p>............<a href="calculator.html">連結</a>。</p>
-		              		</div>
-		                </div>
-	              	</div>          	
-	                             </section> 
-	                    </div>  
-			
-			</main>
-			<footer>
-				&copy; 2025 王俞皓的個人檔案. all rights reserved.
-			</footer>
-		</div>
+        .profile-img {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--ink-black);
+            object-fit: cover;
+            margin: 0 auto 15px;
+            display: block;
+            background: white;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
 
-	</body>
+        .profile-img:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .boom-sticker {
+            position: absolute;
+            background: var(--danger-red);
+            color: white;
+            padding: 10px;
+            font-family: 'Bangers', sans-serif;
+            border: 3px solid black;
+            z-index: 10;
+            font-size: 1.5rem;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 燈箱結構 -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="放大圖">
+    </div>
+
+    <div class="comic-container">
+        <!-- 標題 -->
+        <header class="comic-header">
+            <div class="boom-sticker" style="top: -20px; left: -20px; transform: rotate(-20deg);">GOGO!</div>
+            <h1>LIAM WANG !!</h1>
+            <p>⚾ 棒球少年 × 網頁冒險者 × 頂嘴專家 ⚾</p>
+        </header>
+
+        <div class="comic-grid">
+            
+            <!-- 第一行：大頭貼與基本資料 -->
+            <div class="panel span-4">
+                <span class="panel-title">HERO // 主角登場</span>
+                <img src="liam_resize.jpg" alt="Liam" class="profile-img" onclick="openLightbox(this.src)">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">身高</div>
+                        <div class="stat-value">166cm</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">體重</div>
+                        <div class="stat-value">58kg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">生日</div>
+                        <div class="stat-value">09/26</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel span-8">
+                <span class="panel-title">STORY // 關於我</span>
+                <div class="bubble">
+                    哈囉！我是王俞皓。我是一個愛打棒球、愛玩電動的國一生。
+                    雖然有時候被說有點懶或是白目，但我對喜歡的事物可是很熱血的！
+                    目前正努力在程式世界跟棒球場上同步 LEVEL UP！
+                </div>
+                <div style="margin-top: 10px;">
+                    <span class="zap-tag">#大谷翔平粉</span>
+                    <span class="zap-tag">#拉麵狂熱</span>
+                    <span class="zap-tag">#蟑螂恐懼症</span>
+                    <span class="zap-tag">#頂嘴等級MAX</span>
+                </div>
+            </div>
+
+            <!-- 第二行：全國賽名場面 -->
+            <div class="panel span-12">
+                <span class="panel-title">MISSION // 名場面快報</span>
+                <div class="comic-photo-frame" onclick="openLightbox('全國賽.JPG')">
+                    <img src="baseball_play.jpeg" alt="全國大賽名場面">
+                    <div class="photo-tag">BAM! 全國社區棒球大賽</div>
+                </div>
+                <p style="font-weight: 900; margin-top: 15px; text-align: center; font-size: 1.2rem;">
+                    「目標是全壘打牆外！在場上，我就是最強的打擊手！」
+                </p>
+            </div>
+
+            <!-- 第三行：技能與偶像 -->
+            <div class="panel span-6">
+                <span class="panel-title">SKILLS // 技能樹</span>
+                
+                <div class="skill-container" style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
+                        <span>棒球打擊 (Hitting)</span><span>92%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="92%"></div></div>
+                </div>
+
+                <div class="skill-container" style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
+                        <span>電動操作 (Gaming)</span><span>85%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="85%" style="background: var(--hero-green);"></div></div>
+                </div>
+
+                <div class="skill-container" style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
+                        <span>爵士鼓/太鼓 (Rhythm)</span><span>80%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="80%" style="background: var(--danger-red);"></div></div>
+                </div>
+
+                <div class="skill-container" style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
+                        <span>頂嘴/辯論 (Talking)</span><span>99%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="99%" style="background: var(--action-yellow);"></div></div>
+                </div>
+            </div>
+
+            <div class="panel span-6">
+                <span class="panel-title">IDOLS // 精神支柱</span>
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <div style="flex: 1; border: 2px solid black; padding: 10px; background: #fff; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(5deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                        <strong style="color: var(--danger-red);">大谷翔平</strong>
+                        <p style="font-size: 0.9rem;">棒球界的真神，我的終極目標！</p>
+                    </div>
+                    <div style="flex: 1; border: 2px solid black; padding: 10px; background: #fff; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(-5deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                        <strong style="color: var(--action-blue);">賴修暘</strong>
+                        <p style="font-size: 0.9rem;">功課好、體育強、脾氣好（除了游泳之外都很完美）！</p>
+                    </div>
+                </div>
+                <hr style="border: 1px dashed black; margin: 15px 0;">
+                <p><strong>最愛的補給：</strong> 🍜 日式拉麵、🍱 學校午餐</p>
+            </div>
+
+            <!-- 第四行：成就連結 -->
+            <div class="panel span-12">
+                <span class="panel-title">ACHIEVEMENTS // 成就解鎖</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px;">
+                    <a href="https://today.line.me/tw/v3/article/MLYnoDw" target="_blank" class="achievement-link">轟出全壘打！新聞報導</a>
+                    <a href="https://www.tllb.org.tw/news_detail?id=502" target="_blank" class="achievement-link">關鍵安打紀錄</a>
+                    <a href="https://youtube.com/clip/UgkxXPY0h8ZRR_fcAIvkvDk_RCNEobggPCG0?si=kscAvM_2EhIG6s2W" target="_blank" class="achievement-link">精采安打片段 (YouTube)</a>
+                    <a href="https://www.youtube.com/watch?v=nd7VguB-oME" target="_blank" class="achievement-link">MVP 榮耀時刻影片</a>
+                    <a href="https://www.youtube.com/watch?v=EbFZfhsZs1w" target="_blank" class="achievement-link">爵士鼓表演特輯</a>
+                    <a href="https://youtu.be/0x35adarn08" target="_blank" class="achievement-link">太鼓達人挑戰</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 聯絡按鈕 -->
+        <div style="position: relative;">
+            <div class="boom-sticker" style="top: 20px; right: 20px; transform: rotate(15deg); background: var(--action-blue);">CLICK!</div>
+            <a href="javascript:void(0)" class="btn-bam" onclick="showSecret()">
+                CONTACT THE HERO !
+            </a>
+        </div>
+
+        <footer style="text-align:center; margin: 60px 0 40px; font-weight: 900;">
+            <div style="background: white; display: inline-block; padding: 10px 25px; border: 4px solid black; transform: rotate(-1deg); box-shadow: 5px 5px 0 black;">
+                TO BE CONTINUED IN NEXT SEMESTER ...
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 燈箱功能
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止捲動
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 技能條動畫啟動
+        window.onload = function() {
+            const fills = document.querySelectorAll('.skill-fill');
+            fills.forEach(fill => {
+                const width = fill.getAttribute('data-width');
+                fill.style.width = width;
+            });
+        };
+
+        function showSecret() {
+            const msg = "BAM!! 系統提示：\n我的聯絡信箱是：liamwang926@gmail.com";
+            const overlay = document.createElement('div');
+            overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:100; display:flex; justify-content:center; align-items:center; padding:20px; box-sizing:border-box;";
+            
+            const modal = document.createElement('div');
+            modal.style = "background:var(--action-yellow); border:5px solid black; padding:30px; max-width:400px; text-align:center; font-weight:900; box-shadow:15px 15px 0 black; transform:rotate(-2deg); animation: shake 0.5s ease-in-out;";
+            modal.innerHTML = `<h2 style="font-family:'Bangers'; font-size:3rem; margin:0 0 20px 0;">FOUND ME!</h2><p style="font-size:1.2rem; line-height:1.6;">${msg.replace(/\n/g, '<br>')}</p><button onclick="this.parentElement.parentElement.remove()" style="margin-top:20px; padding:10px 30px; background:black; color:white; border:none; cursor:pointer; font-weight:900;">CLOSE</button>`;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+    </script>
+</body>
 </html>

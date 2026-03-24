@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王俞皓 Liam | 漫畫風履歷 V2.1</title>
+    <title>王俞皓 Liam | 漫畫風履歷 V2.2</title>
     <!-- 引入字體：手寫感與粗體 -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -103,14 +103,6 @@
             z-index: 5;
         }
 
-        /* 延遲動畫 */
-        .panel:nth-child(1) { animation-delay: 0.1s; }
-        .panel:nth-child(2) { animation-delay: 0.2s; }
-        .panel:nth-child(3) { animation-delay: 0.3s; }
-        .panel:nth-child(4) { animation-delay: 0.4s; }
-        .panel:nth-child(5) { animation-delay: 0.5s; }
-        .panel:nth-child(6) { animation-delay: 0.6s; }
-
         .panel:nth-child(odd) { transform: rotate(-0.5deg); }
         .panel:nth-child(even) { transform: rotate(0.5deg); }
 
@@ -130,44 +122,39 @@
             align-self: flex-start;
         }
 
-        /* 照片區域與滑鼠特效 */
-        .comic-photo-frame {
+        /* 畫廊專用樣式 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
             border: 4px solid var(--ink-black);
-            background: #eee;
-            position: relative;
-            line-height: 0;
+            aspect-ratio: 1 / 1;
             overflow: hidden;
-            cursor: zoom-in;
+            cursor: pointer;
+            background: #ddd;
+            transition: transform 0.3s;
+            position: relative;
+            box-shadow: 5px 5px 0px var(--ink-black);
         }
 
-        .comic-photo-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: contrast(1.1);
-            transition: transform 0.5s;
-        }
-
-        .comic-photo-frame:hover img {
-            transform: scale(1.1);
-        }
-
-        .photo-tag {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: var(--action-yellow);
-            color: var(--ink-black);
-            padding: 8px 18px;
-            font-weight: 900;
-            border: 3px solid var(--ink-black);
-            transform: rotate(-3deg);
-            font-size: 1.2rem;
+        .gallery-item:hover {
+            transform: rotate(3deg) scale(1.05);
             z-index: 2;
-            pointer-events: none;
+            box-shadow: 8px 8px 0px var(--ink-black);
         }
 
-        /* 對話氣泡動畫 */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 對話氣泡 */
         .bubble {
             position: relative;
             background: #fff;
@@ -180,9 +167,7 @@
             transition: transform 0.3s;
         }
 
-        .bubble:hover {
-            transform: translateY(-5px);
-        }
+        .bubble:hover { transform: translateY(-5px); }
 
         /* 數值區塊 */
         .stats-grid {
@@ -205,7 +190,7 @@
         .stat-label { font-size: 0.8rem; font-weight: 900; color: #666; }
         .stat-value { font-size: 1.4rem; font-weight: 900; color: var(--action-blue); }
 
-        /* 技能條動畫 */
+        /* 技能條 */
         .skill-bar { height: 20px; border: 3px solid var(--ink-black); background: #fff; position: relative; }
         .skill-fill { 
             height: 100%; 
@@ -233,31 +218,72 @@
             background: var(--ink-black);
         }
 
-        /* 燈箱樣式 (Lightbox) */
+        /* 燈箱樣式 */
         #lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            cursor: zoom-out;
-        }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 10px solid white;
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
-            transform: scale(0.8);
-            transition: transform 0.3s;
         }
 
         #lightbox.active { display: flex; }
-        #lightbox.active img { transform: scale(1); }
 
-        /* 成就連結特效 */
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 85%;
+            border: 10px solid white;
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .lb-btn {
+            pointer-events: auto;
+            background: var(--action-yellow);
+            border: 4px solid var(--ink-black);
+            color: var(--ink-black);
+            font-family: 'Bangers', sans-serif;
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 var(--ink-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.1s;
+        }
+
+        .lb-btn:hover { background: white; transform: scale(1.1); }
+        .lb-btn:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--ink-black); }
+
+        .lb-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--danger-red);
+            color: white;
+            border: 3px solid black;
+            padding: 10px 25px;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: 'Bangers', 'Noto Sans TC', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* 成就連結 */
         .achievement-link {
             display: block;
             background: white;
@@ -276,7 +302,6 @@
             animation: shake 0.5s infinite;
         }
 
-        /* 大按鈕特效 */
         .btn-bam {
             display: block;
             width: 100%;
@@ -294,14 +319,8 @@
             transition: 0.1s;
         }
 
-        .btn-bam:hover {
-            background: var(--hero-green);
-        }
-
-        .btn-bam:active {
-            transform: translate(5px, 5px);
-            box-shadow: 5px 5px 0px var(--ink-black);
-        }
+        .btn-bam:hover { background: var(--hero-green); }
+        .btn-bam:active { transform: translate(5px, 5px); box-shadow: 5px 5px 0px var(--ink-black); }
 
         .profile-img {
             width: 120px; height: 120px;
@@ -315,9 +334,7 @@
             cursor: pointer;
         }
 
-        .profile-img:hover {
-            transform: rotate(360deg) scale(1.1);
-        }
+        .profile-img:hover { transform: rotate(360deg) scale(1.1); }
 
         .boom-sticker {
             position: absolute;
@@ -335,7 +352,12 @@
 <body>
 
     <!-- 燈箱結構 -->
-    <div id="lightbox" onclick="closeLightbox()">
+    <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()">CLOSE X</button>
+        <div class="lb-nav">
+            <button class="lb-btn" onclick="changeImage(-1)">◀</button>
+            <button class="lb-btn" onclick="changeImage(1)">▶</button>
+        </div>
         <img id="lightbox-img" src="" alt="放大圖">
     </div>
 
@@ -349,10 +371,10 @@
 
         <div class="comic-grid">
             
-            <!-- 第一行：大頭貼與基本資料 -->
+            <!-- 第一行：主角基本資料 -->
             <div class="panel span-4">
                 <span class="panel-title">HERO // 主角登場</span>
-                <img src="liam_resize.jpg" alt="Liam" class="profile-img" onclick="openLightbox(this.src)">
+                <img src="liam_resize.jpg" alt="Liam" class="profile-img" onclick="openGallery(0)">
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-label">身高</div>
@@ -384,43 +406,21 @@
                 </div>
             </div>
 
-            <!-- 第二行：全國賽名場面 -->
-            <div class="panel span-12">
-                <span class="panel-title">MISSION // 名場面快報</span>
-                <div class="comic-photo-frame" onclick="openLightbox('全國賽.JPG')">
-                    <img src="baseball_play.jpeg" alt="全國大賽名場面">
-                    <div class="photo-tag">BAM! 全國社區棒球大賽</div>
-                </div>
-                <p style="font-weight: 900; margin-top: 15px; text-align: center; font-size: 1.2rem;">
-                    「目標是全壘打牆外！在場上，我就是最強的打擊手！」
-                </p>
-            </div>
-
-            <!-- 第三行：技能與偶像 -->
+            <!-- 第二行：技能與偶像 -->
             <div class="panel span-6">
                 <span class="panel-title">SKILLS // 技能樹</span>
-                
                 <div class="skill-container" style="margin-bottom: 15px;">
                     <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
                         <span>棒球打擊 (Hitting)</span><span>92%</span>
                     </div>
                     <div class="skill-bar"><div class="skill-fill" data-width="92%"></div></div>
                 </div>
-
                 <div class="skill-container" style="margin-bottom: 15px;">
                     <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
                         <span>電動操作 (Gaming)</span><span>85%</span>
                     </div>
                     <div class="skill-bar"><div class="skill-fill" data-width="85%" style="background: var(--hero-green);"></div></div>
                 </div>
-
-                <div class="skill-container" style="margin-bottom: 15px;">
-                    <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
-                        <span>爵士鼓/太鼓 (Rhythm)</span><span>80%</span>
-                    </div>
-                    <div class="skill-bar"><div class="skill-fill" data-width="80%" style="background: var(--danger-red);"></div></div>
-                </div>
-
                 <div class="skill-container" style="margin-bottom: 15px;">
                     <div style="display: flex; justify-content: space-between; font-weight: 900; margin-bottom: 5px;">
                         <span>頂嘴/辯論 (Talking)</span><span>99%</span>
@@ -445,7 +445,39 @@
                 <p><strong>最愛的補給：</strong> 🍜 日式拉麵、🍱 學校午餐</p>
             </div>
 
-            <!-- 第四行：成就連結 -->
+            <div class="panel span-12">
+                <span class="panel-title">MISSION // 名場面快報</span>
+                <div class="comic-photo-frame" onclick="openLightbox('全國賽.JPG')">
+                    <img src="baseball_play.jpeg" alt="全國大賽名場面">
+                    <div class="photo-tag">BAM! 全國社區棒球大賽</div>
+                </div>
+                <p style="font-weight: 900; margin-top: 15px; text-align: center; font-size: 1.2rem;">
+                    「目標是全壘打牆外！在場上，我就是最強的打擊手！」
+                </p>
+            </div>
+
+            <!-- 第三行：漫畫畫廊區塊 (整合所有照片) -->
+            <div class="panel span-12">
+                <span class="panel-title">GALLERY // 冒險畫廊</span>
+                <div class="gallery-grid">
+                    <!-- 點擊啟動畫廊燈箱 -->
+                    <div class="gallery-item" onclick="openGallery(0)">
+                        <img src="photo1.jpg" alt="photo">
+                    </div>
+                    <div class="gallery-item" onclick="openGallery(1)">
+                        <img src="photo2.jpg" alt="photo">
+                    </div>
+                    <!-- 更多預留位置 -->
+                    <div class="gallery-item" onclick="openGallery(2)">
+                        <img src="photo3.jpg" alt="photo">
+                    </div>
+                    <div class="gallery-item" onclick="openGallery(3)">
+                        <img src="photo4.png" alt="photo">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 成就解鎖 -->
             <div class="panel span-12">
                 <span class="panel-title">ACHIEVEMENTS // 成就解鎖</span>
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px;">
@@ -476,13 +508,36 @@
     </div>
 
     <script>
-        // 燈箱功能
-        function openLightbox(src) {
+        // --- 畫廊燈箱邏輯 ---
+        let currentImgIndex = 0;
+        
+        // 管理所有畫廊圖片路徑
+        const galleryImages = [
+            'photo1.jpg',
+            'photo2.jpg',
+            'photo3.jpg',
+            'photo4.png'
+        ];
+
+        function openGallery(index) {
+            currentImgIndex = index;
+            updateLightbox();
             const lb = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
             lb.classList.add('active');
-            document.body.style.overflow = 'hidden'; // 防止捲動
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightbox() {
+            const img = document.getElementById('lightbox-img');
+            img.src = galleryImages[currentImgIndex];
+        }
+
+        function changeImage(step) {
+            currentImgIndex += step;
+            // 循環功能
+            if (currentImgIndex >= galleryImages.length) currentImgIndex = 0;
+            if (currentImgIndex < 0) currentImgIndex = galleryImages.length - 1;
+            updateLightbox();
         }
 
         function closeLightbox() {
@@ -491,7 +546,17 @@
             document.body.style.overflow = 'auto';
         }
 
-        // 技能條動畫啟動
+        // 監聽鍵盤
+        document.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('lightbox');
+            if (!lb.classList.contains('active')) return;
+            
+            if (e.key === "ArrowLeft") changeImage(-1);
+            if (e.key === "ArrowRight") changeImage(1);
+            if (e.key === "Escape") closeLightbox();
+        });
+
+        // 技能條動畫
         window.onload = function() {
             const fills = document.querySelectorAll('.skill-fill');
             fills.forEach(fill => {
@@ -503,7 +568,7 @@
         function showSecret() {
             const msg = "BAM!! 系統提示：\n我的聯絡信箱是：liamwang926@gmail.com";
             const overlay = document.createElement('div');
-            overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:100; display:flex; justify-content:center; align-items:center; padding:20px; box-sizing:border-box;";
+            overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; display:flex; justify-content:center; align-items:center; padding:20px; box-sizing:border-box;";
             
             const modal = document.createElement('div');
             modal.style = "background:var(--action-yellow); border:5px solid black; padding:30px; max-width:400px; text-align:center; font-weight:900; box-shadow:15px 15px 0 black; transform:rotate(-2deg); animation: shake 0.5s ease-in-out;";
